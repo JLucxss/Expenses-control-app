@@ -1,7 +1,8 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto/create-user.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -15,17 +16,9 @@ export class AuthController {
         return this.usersService.create(createUserDto)
     }
 
+    @UseGuards(AuthGuard("local"))
     @Post('login')
-    async login(@Body() body: {username: string, password: string}){
-        const user = await this.authService.validateUser(body.username, body.password)
-
-        if(!user) {
-            throw new UnauthorizedException('Credenciais inválidas')
-        }
-
-        return this.authService.login({
-            username: user.username,
-            sub: user.id
-        })
+    async login(@Request() req) {
+        return this.authService.login(req.user)
     }
 }
