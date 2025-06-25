@@ -13,6 +13,6 @@ export class UsersController {
 
     @Get()
     findAll() {
-        return 'This action return all users' // apenas para teste
+        return this.usersService.findAll()
     }
 }
