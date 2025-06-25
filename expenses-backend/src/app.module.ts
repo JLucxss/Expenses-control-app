@@ -7,6 +7,8 @@ import { User } from './users/entities/user.entity/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/entities/category.entity/category.entity';
+import { TransactionsModule } from './transactions/transactions.module';
+import { Transaction } from './transactions/entities/transaction.entity/transaction.entity';
 
 @Module({
   imports: [
@@ -17,12 +19,13 @@ import { Category } from './categories/entities/category.entity/category.entity'
       username: 'root',
       password: '88439316ce',
       database: 'expenses_db',
-      entities: [User, Category],
+      entities: [User, Category, Transaction],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
-    CategoriesModule
+    CategoriesModule,
+    TransactionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
