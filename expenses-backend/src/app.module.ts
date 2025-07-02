@@ -9,6 +9,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/entities/category.entity/category.entity';
 import { TransactionsModule } from './transactions/transactions.module';
 import { Transaction } from './transactions/entities/transaction.entity/transaction.entity';
+import { SummariesModule } from './summaries/summaries.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { Transaction } from './transactions/entities/transaction.entity/transact
     UsersModule,
     AuthModule,
     CategoriesModule,
-    TransactionsModule
+    TransactionsModule,
+    SummariesModule
   ],
   controllers: [AppController],
   providers: [AppService],
