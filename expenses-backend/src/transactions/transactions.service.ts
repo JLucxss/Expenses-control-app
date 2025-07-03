@@ -34,8 +34,8 @@ export class TransactionsService {
         return this.transactionsRepository.save(transaction)
     }
 
-    findAll(): Promise<Transaction[]> {
-        return this.transactionsRepository.find({ relations: ['category', 'user']})
+    findAll(userId: number): Promise<Transaction[]> {
+        return this.transactionsRepository.find({where: { user: { id: userId} }, relations: ['category', 'user']})
     }
 
     findOne(id: number): Promise<Transaction | null> {

@@ -15,7 +15,8 @@ export class TransactionsController {
 
     @Get()
     findAll(@Request() req) {
-        return this.transactionsService.findAll()
+        const userId = req.user.id
+        return this.transactionsService.findAll(userId)
     }
 
     @Get(':id')
