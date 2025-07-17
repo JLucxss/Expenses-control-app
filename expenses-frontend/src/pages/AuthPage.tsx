@@ -2,17 +2,21 @@ import axios from "axios";
 import React, { useState } from "react";
 import RegisterForm from "../components/auth/RegisterForm";
 import LoginForm from "../components/auth/LoginForm";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true)
     const [message, setMessage] = useState('')
+    const { login } = useAuth()
+    const navigate = useNavigate()
 
     const handleLogin = async (username: string, password: string) => {
         try{
             const response = await axios.post('http://localhost:3000/auth/login', { username, password })
-            localStorage.setItem('accessToken', response.data.access_token)
+            login(response.data.access_token)
             setMessage('Login bem sucedido!')
-            // direcionar para dashboard ou pagina principal
+            navigate('/dashboard') // redirecionar para o dashboard
         } catch (error) {
             setMessage('Erro no login. Verifique suas credenciais')
             console.error('Login error:', error)
